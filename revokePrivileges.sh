@@ -5,7 +5,7 @@ then
 	echo ""
 	echo "Script to revoke the privileges on either a URI, database or table(s) from a given role as specified in the .lst file"
 	echo "Usage: $0 role_privileges_file [keytab_file] [kerberos_principal]"
-	echo "e.g. ./revokePrivilege.sh role_privileges.lst sentry.keytab NPDSVC.Cloudera.Sent"
+	echo "e.g. ./revokePrivilege.sh role_privileges.lst admin.keytab admin@ANDRZEJ.COM"
 	echo ""
 	exit 1
 fi
@@ -19,13 +19,12 @@ then
 	kinit -kt $keytabfile $principal
 fi
 
-host='ukgs2hmn01.cwglobal.local'
-port='10000'
-realm='CWGLOBAL.LOCAL'
-trustStore="${JAVA_HOME}/jre/lib/security/cacerts"
-trustStorePass="changeit"
 
-beelineConnectionString="beeline -u jdbc:hive2://${host}:${port}/default;principal=hive/${host}@${realm};saslQop=auth;ssl=true;sslTrustStore=${trustStore};trustStorePass=${trustStorePass} --outputformat=csv2 --silent=true --showHeader=false"
+st="ip-172-31-36-0.eu-west-1.compute.internal"
+port="10000"
+realm="ANDRZEJ.COM"
+
+beelineConnectionString="beeline -u jdbc:hive2://${host}:${port}/default;principal=hive/${host}@${realm} --outputformat=csv2 --silent=true --showHeader=false"
 commands=""
 
 while IFS=' ' read role accessLevel object tablePattern
