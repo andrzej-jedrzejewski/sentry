@@ -1,0 +1,4 @@
+andrzej_all_admin_role ALL default
+gpdw_all_role ALL gpdw
+gpdw_read_role SELECT gpdw
+gpdw_readwrite_role SELECT,INSERT gpdw
